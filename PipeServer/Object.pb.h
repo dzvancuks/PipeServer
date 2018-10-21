@@ -29,6 +29,7 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 #define PROTOBUF_INTERNAL_EXPORT_protobuf_Object_2eproto 
@@ -54,6 +55,27 @@ template<> ::Object* Arena::CreateMaybeMessage<::Object>(Arena*);
 }  // namespace protobuf
 }  // namespace google
 
+enum Action {
+  STORE = 0,
+  RETRIEVE = 1,
+  Action_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  Action_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
+};
+bool Action_IsValid(int value);
+const Action Action_MIN = STORE;
+const Action Action_MAX = RETRIEVE;
+const int Action_ARRAYSIZE = Action_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* Action_descriptor();
+inline const ::std::string& Action_Name(Action value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    Action_descriptor(), value);
+}
+inline bool Action_Parse(
+    const ::std::string& name, Action* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<Action>(
+    Action_descriptor(), name, value);
+}
 // ===================================================================
 
 class Object : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Object) */ {
@@ -143,9 +165,9 @@ class Object : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
 
   // accessors -------------------------------------------------------
 
-  // string name = 1;
+  // string name = 2;
   void clear_name();
-  static const int kNameFieldNumber = 1;
+  static const int kNameFieldNumber = 2;
   const ::std::string& name() const;
   void set_name(const ::std::string& value);
   #if LANG_CXX11
@@ -157,9 +179,9 @@ class Object : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
   ::std::string* release_name();
   void set_allocated_name(::std::string* name);
 
-  // bytes data = 2;
+  // bytes data = 3;
   void clear_data();
-  static const int kDataFieldNumber = 2;
+  static const int kDataFieldNumber = 3;
   const ::std::string& data() const;
   void set_data(const ::std::string& value);
   #if LANG_CXX11
@@ -171,12 +193,19 @@ class Object : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
   ::std::string* release_data();
   void set_allocated_data(::std::string* data);
 
+  // .Action action = 1;
+  void clear_action();
+  static const int kActionFieldNumber = 1;
+  ::Action action() const;
+  void set_action(::Action value);
+
   // @@protoc_insertion_point(class_scope:Object)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr name_;
   ::google::protobuf::internal::ArenaStringPtr data_;
+  int action_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_Object_2eproto::TableStruct;
 };
@@ -191,7 +220,21 @@ class Object : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
 #endif  // __GNUC__
 // Object
 
-// string name = 1;
+// .Action action = 1;
+inline void Object::clear_action() {
+  action_ = 0;
+}
+inline ::Action Object::action() const {
+  // @@protoc_insertion_point(field_get:Object.action)
+  return static_cast< ::Action >(action_);
+}
+inline void Object::set_action(::Action value) {
+  
+  action_ = value;
+  // @@protoc_insertion_point(field_set:Object.action)
+}
+
+// string name = 2;
 inline void Object::clear_name() {
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -244,7 +287,7 @@ inline void Object::set_allocated_name(::std::string* name) {
   // @@protoc_insertion_point(field_set_allocated:Object.name)
 }
 
-// bytes data = 2;
+// bytes data = 3;
 inline void Object::clear_data() {
   data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
@@ -303,6 +346,18 @@ inline void Object::set_allocated_data(::std::string* data) {
 
 // @@protoc_insertion_point(namespace_scope)
 
+
+namespace google {
+namespace protobuf {
+
+template <> struct is_proto_enum< ::Action> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Action>() {
+  return ::Action_descriptor();
+}
+
+}  // namespace protobuf
+}  // namespace google
 
 // @@protoc_insertion_point(global_scope)
 

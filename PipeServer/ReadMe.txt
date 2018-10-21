@@ -4,6 +4,17 @@
 
 StreamBase task
 
+Requirements
+- The server should be able to receive both sync/async connection requests from clients
+
+- The server should be able to store data provided by the client via NamedPipe in a reasonable data structure
+  It uses "\\.\pipe\mynamedpipe" named pipe and exchanges dapa packed by protobuf
+- The server should be able to register a custom class (w/ related functions, attributes) which can be used by the client (see req-4)
+  It stores map of object received via pipe
+- The server should be able to store the custom objects created by the client for the custom class created in req-7
+  It stores map of object received via pipe
+
+
 Pre requirements:
 1. Install Protobuf using vcpkg
 vcpkg install protobuf protobuf:x64-windows

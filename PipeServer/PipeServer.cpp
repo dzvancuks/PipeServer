@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "Object.pb.h"
 
 #include <windows.h> 
 #include <stdio.h>
@@ -325,6 +326,10 @@ BOOL ConnectToNewClient(HANDLE hPipe, LPOVERLAPPED lpo)
 
 VOID GetAnswerToRequest(LPPIPEINST pipe)
 {
+	Object o;
+	o.ParseFromArray( pipe->chRequest, BUFSIZE);
+	printf( "%s\n", o.name().c_str() ); 
+
 	_tprintf(TEXT("[%d] %s\n"), pipe->hPipeInst, pipe->chRequest);
 	StringCchCopy(pipe->chReply, BUFSIZE, TEXT("Default answer from server"));
 	pipe->cbToWrite = (lstrlen(pipe->chReply) + 1) * sizeof(TCHAR);
