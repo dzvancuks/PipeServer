@@ -2,27 +2,18 @@
     CONSOLE APPLICATION : PipeServer Project Overview
 ========================================================================
 
-AppWizard has created this PipeServer application for you.
+StreamBase task
 
-This file contains a summary of what you will find in each of the files that
-make up your PipeServer application.
+Pre requirements:
+1. Install Protobuf using vcpkg
+vcpkg install protobuf protobuf:x64-windows
+Follow official guide:
+https://github.com/protocolbuffers/protobuf/blob/master/src/README.md
+2. Add protoc.exe to PATH
+3. Generate Object.proto into pb.h and pb.cc files
 
-
-PipeServer.vcxproj
-    This is the main project file for VC++ projects generated using an Application Wizard.
-    It contains information about the version of Visual C++ that generated the file, and
-    information about the platforms, configurations, and project features selected with the
-    Application Wizard.
-
-PipeServer.vcxproj.filters
-    This is the filters file for VC++ projects generated using an Application Wizard. 
-    It contains information about the association between the files in your project 
-    and the filters. This association is used in the IDE to show grouping of files with
-    similar extensions under a specific node (for e.g. ".cpp" files are associated with the
-    "Source Files" filter).
-
-PipeServer.cpp
-    This is the main application source file.
+TODO:
+make custom build step for Object.proto to generate pb.h and pb.cc files
 
 /////////////////////////////////////////////////////////////////////////////
 Other standard files:
