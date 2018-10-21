@@ -81,6 +81,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup>  
+    <CustomBuildBeforeTargets>CustomBuildStep</CustomBuildBeforeTargets>  
+  </PropertyGroup>  
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -141,6 +144,11 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup>  
+    <CustomBuildStep>  
+      <Command>protoc.exe --cpp_out=. Object.proto</Command>  
+    </CustomBuildStep>  
+  </ItemDefinitionGroup>  
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>

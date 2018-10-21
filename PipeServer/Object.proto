@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message Object {
+  string name = 1;
+  bytes data = 2;
+}
