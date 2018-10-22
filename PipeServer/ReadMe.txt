@@ -6,7 +6,8 @@ StreamBase task
 
 Requirements
 - The server should be able to receive both sync/async connection requests from clients
-
+  Taken from official MS example https://docs.microsoft.com/ru-ru/windows/desktop/ipc/named-pipe-server-using-overlapped-i-o
+  According to https://stackoverflow.com/questions/42249020/pipe-nowait-breaks-connetion better to use overlapping IO instead of async NOWAIT connections
 - The server should be able to store data provided by the client via NamedPipe in a reasonable data structure
   It uses "\\.\pipe\mynamedpipe" named pipe and exchanges dapa packed by protobuf
 - The server should be able to register a custom class (w/ related functions, attributes) which can be used by the client (see req-4)

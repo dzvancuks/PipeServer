@@ -3,6 +3,8 @@
 
 #include "stdafx.h"
 #include "Object.pb.h"
+#include "ClassA.h"
+//#include "ClassB.h"
 
 #include <windows.h> 
 #include <stdio.h>
@@ -326,11 +328,49 @@ BOOL ConnectToNewClient(HANDLE hPipe, LPOVERLAPPED lpo)
 
 VOID GetAnswerToRequest(LPPIPEINST pipe)
 {
+	static std::map<std::string, std::string> stored_objects; // actual object containes is string
+
 	Object o;
 	o.ParseFromArray( pipe->chRequest, BUFSIZE);
-	printf( "%s\n", o.name().c_str() ); 
+	printf( "Received request action: " ); 
 
-	_tprintf(TEXT("[%d] %s\n"), pipe->hPipeInst, pipe->chRequest);
-	StringCchCopy(pipe->chReply, BUFSIZE, TEXT("Default answer from server"));
-	pipe->cbToWrite = (lstrlen(pipe->chReply) + 1) * sizeof(TCHAR);
+	switch (o.action())
+	{
+	case Action::STORE:
+		printf("store with name %s\n", o.name().c_str());
+		stored_objects[o.name()] = o.data();
+		break;
+	case Action::RETRIEVE:
+		printf("retrieve ");
+		switch (o.type())
+		{
+		case Type::EXISTING:
+			printf("existing object with name %s\n", o.name());
+			o.set_data(stored_objects[o.name()]); // if not exists it'll return empty data
+			break;
+		case Type::NEW_CLASS_A:
+		{
+			printf("new object of Class A\n");
+
+			ClassA class_a;
+			class_a.set_string_member("Class A created by server");
+			o.set_name("New Class A object");
+			o.set_data(&class_a, sizeof class_a);
+			break;
+		}
+		//TODO Class B
+		default:
+			break;
+		}
+		break;
+	default:
+		printf("unknown action %d\n", o.action());
+	}
+
+
+	//_tprintf(TEXT("[%d] %s\n"), pipe->hPipeInst, pipe->chRequest);
+	//StringCchCopy(pipe->chReply, BUFSIZE, TEXT("Default answer from server"));
+	//pipe->cbToWrite = (lstrlen(pipe->chReply) + 1) * sizeof(TCHAR);
+	o.SerializeToArray(pipe->chReply, BUFSIZE);
+	pipe->cbToWrite = BUFSIZE;
 }
