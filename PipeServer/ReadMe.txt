@@ -11,7 +11,7 @@ Requirements
 - The server should be able to store data provided by the client via NamedPipe in a reasonable data structure
   It uses "\\.\pipe\mynamedpipe" named pipe and exchanges dapa packed by protobuf
 - The server should be able to register a custom class (w/ related functions, attributes) which can be used by the client (see req-4)
-  It stores map of object received via pipe
+  It creates local object, serializes it and sends to Client as binary data
 - The server should be able to store the custom objects created by the client for the custom class created in req-7
   It stores map of object received via pipe
 
@@ -25,7 +25,9 @@ https://github.com/protocolbuffers/protobuf/blob/master/src/README.md
 3. Generate Object.proto into pb.h and pb.cc files
 
 TODO:
-make custom build step for Object.proto to generate pb.h and pb.cc files
+- make custom build step for Object.proto to generate pb.h and pb.cc files
+- add variability using new ClassB
+- make "deep serialization" for custom classes, one way is to use protobuf for ClassA
 
 /////////////////////////////////////////////////////////////////////////////
 Other standard files:
