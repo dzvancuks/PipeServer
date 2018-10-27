@@ -345,7 +345,7 @@ VOID GetAnswerToRequest(LPPIPEINST pipe)
 		switch (o.type())
 		{
 		case Type::EXISTING:
-			printf("existing object with name %s\n", o.name());
+			printf("existing object with name %s\n", o.name().c_str());
 			o.set_data(stored_objects[o.name()]); // if not exists it'll return empty data
 			break;
 		case Type::NEW_CLASS_A:
@@ -372,5 +372,5 @@ VOID GetAnswerToRequest(LPPIPEINST pipe)
 	//StringCchCopy(pipe->chReply, BUFSIZE, TEXT("Default answer from server"));
 	//pipe->cbToWrite = (lstrlen(pipe->chReply) + 1) * sizeof(TCHAR);
 	o.SerializeToArray(pipe->chReply, BUFSIZE);
-	pipe->cbToWrite = BUFSIZE;
+	pipe->cbToWrite = o.ByteSizeLong();
 }
